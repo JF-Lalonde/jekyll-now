@@ -17,7 +17,7 @@ but now I craft code too!
 I live in Denver, CO with my wife Emily and our dog Brewski. I enjoy outdoorsy
 things like skiing, mountain biking, hiking, and camping.
 I stumbled into the world of software after hearing about
-[Turing](www.turing.io) and deciding to try my hand at coding. Turns out I like
+[Turing](https://turing.io/) and deciding to try my hand at coding. Turns out I like
 it very much!
 
 ### Contact me
