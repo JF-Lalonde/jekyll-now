@@ -1,6 +1,9 @@
 ---
 layout: post
 title: Here we go!
+published: true
+date: '2021-01-08 20:46'
+
 ---
 
 Well I finally got motivated enough to start a blog!
