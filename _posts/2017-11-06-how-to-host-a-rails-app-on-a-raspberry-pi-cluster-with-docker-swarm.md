@@ -37,13 +37,13 @@ Once your card is formatted, use the terminal and navigate to the directory that
 
 You’ll want to use the following to flash the image to your disk:
 
-```html
+```shell
 sudo dd bs=1m if=<image-name>.img of=/dev/r<device-name>
 ```
 
 Which in my case looked like this:
 
-```js
+```shell
 sudo dd bs=1m if=2017-09-07-raspbian-stretch.img of=/dev/rdisk2
 ```
 
@@ -55,7 +55,7 @@ After flashing the OS on your cards we’ll want to enable SSH so that we can co
 
 Navigate to your new disk, and in the /boot/ directory create a file called SSH:
 
-```
+```shell
 cd /Volumes/boot/
 touch SSH
 ```
@@ -72,14 +72,14 @@ OR
 
 -   You can navigate to /boot/ and create a wpa\_supplicant.conf file
 
-```
+```shell
 cd /Volumes/boot/
 touch wpa_supplicant.conf
 ```
 
 Inside the wpa\_supplicant.conf type the following:
 
-```js
+```shell
 ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
 network={
     ssid="YOUR_WIFI_NETWORK_NAME"
@@ -92,7 +92,7 @@ You should now have SSH and WiFi enabled! Go ahead and insert your microSD cards
 
 We will now want to find the IP address of each Pi. I found installing and using [Nmap](https://nmap.org/book/inst-macosx.html) to be the most convenient. Find your computer’s IP address and then scan the subnet range to gather all of your device IPs by using:
 
-```html
+```shell
 nmap -sn <Computer IP>.0/24
 ```
 
@@ -102,7 +102,7 @@ This should return a list of all devices in that range. Search for all the devic
 
 You can now SSH into each Pi by using
 
-```css
+```shell
 ssh pi@<IP ADDRESS>
 ```
 
@@ -116,7 +116,7 @@ This will prompt you for a username/password which are by default pi and raspber
 
 Now that you can SSH into each Pi, go ahead and run the following on each of them:
 
-```js
+```shell
 ssh pi@<ADDRESS> curl -fsSL get.docker.com -o get-docker.sh
 ssh pi@<ADDRESS> sudo sh get-docker.sh
 ```
@@ -125,13 +125,13 @@ Ref: [https://github.com/docker/docker-install](https://github.com/docker/docker
 
 This will install docker on each Pi. To make sure that docker is installed, you can SSH into each Pi and run
 
-```
+```shell
 sudo docker version
 ```
 
 Which should return something like this:
 
-```sql
+```shell
 pi@masternode:~ $ sudo docker version
 Client:
  Version:      17.10.0-ce
@@ -161,7 +161,7 @@ Docker Swarm comes included with Docker as of version 1.12.0 and beyond.
 
 To start a swarm, choose one node to be your manager node. SSH into that node and run
 
-```html
+```shell
 sudo docker swarm init --advertise-addr <IP ADDRESS>
 ```
 
@@ -169,7 +169,7 @@ You will be using that node’s IP address to broadcast to other nodes so they c
 
 The result of the previous command returns something like the following:
 
-```css
+```shell
 docker swarm join --token SWMTKN-1-23zfgr7dr50a5jgum9d7lkt2013bsgidun9cm5246xsofeq4h-1x7pfnixwkasv0byz9qhuivy 193.165.0.1:2377
 ```
 
@@ -179,13 +179,13 @@ SSH into each worker node and paste the above line into them. If everything work
 
 SSH back into the manager node and run
 
-```
+```shell
 sudo docker node ls
 ```
 
 Which should return all the nodes: (IDs will be much longer than this)
 
-```rb
+```shell
 pi@masternode:~ $ sudo docker node ls
 ID  HOSTNAME        STATUS      AVAILABILITY        MANAGER STATUS
 9     firstworker   Ready         Active
@@ -209,7 +209,7 @@ Follow the steps to install the Visualizer on ARM architecture (The Raspberry Pi
 
 On manager node:
 
-```sql
+```shell
 sudo docker service create \
         --name viz \
         --publish 8080:8080/tcp \
@@ -222,7 +222,7 @@ sudo docker service create \
 
 To check if the service was created and is running, type
 
-```
+```shell
 sudo docker service ls
 ```
 
@@ -253,7 +253,7 @@ Since I had an existing Rails app on my machine, but I wanted to create an image
 
 I ended up using secure copy (scp) to transfer everything over, but that included many unnecessary files like all previous logs, commits, and cache files. If you chose to go this route, this is how to do it:
 
-```rb
+```shell
 scp -r /path/to/local/dir user@remotehost:/path/to/remote/dir
 ```
 
@@ -261,7 +261,7 @@ scp -r /path/to/local/dir user@remotehost:/path/to/remote/dir
 
 I used Docker-Compose in order for Nginx, Postgres, and Rails to all live in separate container tied together. Using Docker-Compose necessitated installation. The most straightforward way is to install “pip” first:
 
-```sql
+```shell
 apt-get -y install python-pip
 
 pip install docker-compose
@@ -286,7 +286,7 @@ Now that we have an app running on Docker, let’s leverage Docker Swarm to crea
 
 To make use of our Swarm, let’s create a network for our services:
 
-```sql
+```shell
 sudo docker network create climb_net --driver overlay
 ```
 
@@ -294,7 +294,7 @@ The overlay driver allows Swarm to access the network.
 
 Let’s create two replicas of our app to see where they go:
 
-```sql
+```shell
 sudo docker service create --replicas 2 \
 --env POSTGRES_PASSWORD=blank --name climbingworld_app \
 --network climb_net postgres:9.5
@@ -308,7 +308,7 @@ We can see that our app was created twice, and is running on different nodes. No
 
 Let’s see how this looks when taken to a higher level:
 
-```sql
+```shell
 --replicas 20
 ```
 
@@ -328,7 +328,7 @@ Another example of the load balancer in action is when I cut the power to one of
 
 You can also observe the load on CPU and Memory usage using the command:
 
-```js
+```shell
 sudo docker stats $(docker inspect -f {{.Name}} $(docker ps -q))
 ```
 
