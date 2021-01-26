@@ -22,4 +22,4 @@ it very much!
 
 ### Contact me
 
-[lalondej88@gmail.com](mailto:lalondej88@gmail.com)
+[me@jf.codes](mailto:me@jf.codes)
