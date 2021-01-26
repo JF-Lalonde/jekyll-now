@@ -6,7 +6,7 @@ date: '2017-11-07 08:46'
 
 ---
 
-Delving into an open source project can seem daunting, but it’s a great way to get familiar with brownfield development while helping out a \*\*hopefully\*\* good cause.
+Delving into an open source project can seem daunting, but it’s a great way to get familiar with brownfield development while helping out a *hopefully* good cause.
 
 Since I am a soon-to-be (just 2 more days!) graduate of [Turing](https://www.turing.io/), I’ll take all the experience I can working on codebases built by developers other than myself. That was the goal behind contributing to the [Open Food Foundation](https://openfoodnetwork.org/), a not-for-profit organization tasked with distributing food in a more streamlined and affordable way.
 
