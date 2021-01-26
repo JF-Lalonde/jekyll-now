@@ -346,7 +346,7 @@ There are things that I wanted to do in this project that I wasn’t able to for
 
 I tried implementing stress testing to demonstrate how containers would move from node to node, or how new containers could automatically be created when needed. However the stress testing software I found was difficult to work with out of the four that I tried, only jfusterm’s [Stress](https://hub.docker.com/r/jfusterm/stress/) worked (and to a limited extent at that)
 
-The only stress test I was able to run was by starting containers that consume 100% of the server’s CPU. However they were all shutdown immediately. This lead me to rethink my assumptions.
+The only stress test I was able to run was by starting containers that consume 100% of the server’s CPU. However they were all shutdown immediately. This led me to rethink my assumptions.
 
 In the future I hope to run Kubernetes and use the [Kubernetes Dashboard](https://github.com/kubernetes/dashboard) to better show realtime values like CPU and Memory usage.
 
